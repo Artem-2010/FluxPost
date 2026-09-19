@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/* Глобальные шаблоны проекта */
+@source "../../templates/**/*.html";
+
+/* Шаблоны внутри конкретных приложений DJANGO */
+@source "../../**/templates/**/*.html";
+
+@theme {
+    --color-techhub-blur: #0ea5e9;
+    --color-techhub-dark: #0f172a;
+}

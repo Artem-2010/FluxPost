@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Создать историю | FluxPost
+{% endblock title %}
+
+{% block content %}
+    <div class="max-w-2x1 mx-auto bg-white rounded-2x1 shadow-sm border border-slate-200 p-8 md:p-10">
+        <h1 class="text-3x1 font-bold test-slate-900 mb-2">Новая история</h1>
+        <p class="text-slate-500 mb-8">Поделитесь вашими историями с окружающими.</p>
+
+        <form method='POST' endtype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="bg-red-50 text-red-600 p-4 rounded-xl text-sm">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {% comment %} Блок картинки {% endcomment %}
+            
+            <div>
+                <label for="{{ form.cover_image.id_for_label }}" class="block text-sm font-semiblod text-slate-700 mb-2">
+                    {{ form.cover_image.label }}
+                </label>
+                
+                <div class="mb-3 hidden" id="preview-container">
+                    <img id="image-preview" src="" alt="Preview" class="h-48 object-cover rounded-lg border border-slate-200 shadow-sm">
+                </div>
+
+                {{ form.cover_image }}
+            </div>
+            
+            {% comment %} Блок 1 заголовок {% endcomment %}
+
+            <div>
+                <label for="{{ form.title.id_for_label }}" class="block text-sm font-semiblod text-slate-700 mb-2">
+                    {{ form.title.label }}
+                </label>
+                {{ form.title }}
+                
+                {% if form.title.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ form.title.errors }}</p>
+                {% endif %}
+            </div>
+
+            {% comment %} Блок 2 контент {% endcomment %}
+
+            <div>
+                <label for="{{ form.content.id_for_label }}" class="block text-sm font-semiblod text-slate-700 mb-2">
+                    {{ form.content.label }}
+                </label>
+                {{ form.content }}
+                
+                {% if form.content.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ form.content.errors }}</p>
+                {% endif %}
+            </div>
+
+             {% comment %} Блок 3 публикация {% endcomment %}
+
+            <div>
+                {{ form.is_published }}
+                
+                <label for="{{ form.is_published.id_for_label }}" class="text-sm font-semiblod text-slate-700 cursor-pointer">
+                    {{ form.is_published.label }}
+                    <span class="block text-sm text-slate-500 forn-normal mt-0.5">Если снять галочку, пост сохранится в черновик</span>
+                </label>
+            </div>
+            
+            <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
+                <a href="{% url 'posts:list' %}" class="text-slate-500 hover:text-slate-800 font medium transition-colors">Отмена</a>
+            
+                <button type="submit">
+                    Опубликовать
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const imageInput = document.getElementById("id_cover_image");
+            const previewContainer = document.getElementById("preview-container");
+            const imagePreview = document.getElementById("image-preview");
+            
+            imageInput.addEventListener('change', function(event) {
+                if (event.target.files && event.target.files[0]) {
+                    const file = event.target.files[0];
+                    
+                    const objectUrl = URL.createObjectURL(file);
+
+                    imagePreview.src = objectUrl
+                    previewContainer.classList.remove('hidden')
+                } else {
+                    previewContainer.classList.add('hidden')
+                }
+            });
+        });
+    </script>
+
+{% endblock content %}
+    

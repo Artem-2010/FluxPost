@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center py-16 text-center">
+    
+    <!-- Заголовок -->
+    <h1 class="text-4xl font-extrabold text-slate-900 mb-4">
+        Добро пожаловать в FluxPost
+    </h1>
+    
+    <!-- Описание -->
+    <p class="text-lg text-slate-600 max-w-md mx-auto mb-6">
+        Делитесь своими историями и читайте публикации других авторов.
+    </p>
+
+    <!-- Кнопка перехода в ленту -->
+    <a href="{% url 'posts:list' %}" class="inline-block px-6 py-3 bg-slate-900 text-white font-medium rounded-lg hover:bg-slate-800 transition mb-8">
+        Перейти в ленту
+    </a>
+
+<!-- Логотип под кнопкой (увеличен в 1.5 раза) -->
+<div>
+    <img 
+        src="{% static 'img/logo.fon.png' %}" 
+        alt="FluxPost Logo" 
+        class="w-48 md:w-72 mx-auto opacity-80"
+    />
+</div>
+
+<div class="text-center">
+  <h1>Уважаемые пользователи!</h1>
+  <p>Данный проект ещё в разработке, поэтому некоторые функции могут быть недоступны или работать не полноценно</p>
+  <p>Заранее приносим извинения за возможные неудобства</p>
+</div>
+
+</div>
+{% endblock %}

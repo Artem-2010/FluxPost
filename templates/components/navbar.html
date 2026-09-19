@@ -1,0 +1,41 @@
+{% load post_tags %}
+<header class="z-50 bg-slate-300 shadow-md sticky top-0">
+  <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="{% url 'posts:index' %}" class="font-bold tracking-tight text-3xl transition-colors hover:text-blue-400">
+        <span class="text-slate-900 text-center">FluxPost</span>
+    </a>
+
+        <!-- Меню навигации -->
+    <nav class="hidden space-x-6 font-medium text-sm md:flex">
+      <a href="{% url 'posts:list' %}" class="transition-colors hover:text-slate-900 focus:outline-none focus:ring-2">
+        Лента
+      </a>
+    </nav>
+    
+    <div class="flex items-center space-x-4">
+        {% if user.is_authenticated %}
+            <a href="{% url 'posts:create' %}" class="hidden sm:inline-flex items-center text-sm font-semibold text-slate-900 hover:transition-colors">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m-8-8h16"></path>
+                </svg>
+                Написать статью
+            </a>
+
+            <div class="flex items-center space-x-3 pl-4 border-l border-slate-900">
+                <span class="text-sm font-medium text-slate-900"><a href="{% url 'users:profile' request.user.username %}">{{ user.username }}</a></span>
+                {% user_avatar user "w-8 h-8 text-sm" %}
+                <form action="{% url 'users:logout' %}" method="POST" class="inline">
+                    {% csrf_token %}
+                    <button type="submit" class="text-xs text-slate-900 hover:ml-2 font-medium">Выйти</button>
+                </form>
+                <a href="{% url 'users:profile_edit' %}" class="text-xs text-slate-900 hover:ml-3">Настройки</a>
+            </div>
+        {% else %}
+            <a href="{% url 'users:login' %}" class="text-sm font-medium text-slate-900 hover:transition-colors">Войти</a>
+            <a href="{% url 'users:register' %}" class="bg-slate-900 hover:slate-900 text-white px-5 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm">
+                Регистрация
+            </a>
+        {% endif %}
+    </div>
+  </div>
+</header>

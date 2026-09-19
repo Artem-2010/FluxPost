@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mt-10 text-center">
+    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+        </svg>
+    </div>
+
+    <h1 class="text-2xl font-bold text-slate-900 mb-2">Удалить историю</h1>
+    <p class="text-slate-600 mb-6">
+        Удалить историю безвозвратно?
+        <br><span class="font-bold text-slate-900">{{ post.title }}</span>?
+    </p>
+
+    <form method="POST" class="flex items-center justify-center gap-4">
+        {% csrf_token %}
+        <a href="{% url 'posts:detail' post.slug %}" class="px-6 py-2 rounded-xl text-slate-600 font-medium hover:bg-slate-100 transition-colors">Отмена</a>
+        <button type="submit" class="w-auto shrink-0 hover:bg-slate-900 px-6 py-2 rounded-xl font-bold transition-colors cursor-pointer">
+            Да, удалить навсегда
+        </button>
+    </form>
+</div>
+{% endblock content %}

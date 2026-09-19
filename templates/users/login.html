@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход | FluxPost{% endblock title %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mt-10">
+    <h1 class="text-3xl font-bold text-slate-900 mb-6 text-center">С возвращением</h1>
+
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+        <div class="[&>p]:mb-4 [&>p>label]:block [&>p>label]:text-sm [&>p>label]:font-semibold [&>p>label]:text-slate-700 [&>p>label]:mb-1 [&>p>input]:w-full [&>p>input]:px-4 [&>p>input]:py-2 [&>p>input]:rounded-xl [&>p>input]:border-slate-300 [&>p>input]:focus:border-blue-500 [&>p>input]:focus:ring-2 [&>p>input]:focus:ring-blue-200 [&>p>input]:outline-none">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="w-full hover: font-bold py-3 rounded-xl transition-colors shadow-sm">
+            Войти
+        </button>
+    </form>
+
+    <div class="mt-6 text-center text-sm text-slate-500">
+        Нет аккаунта? <a href="{% url 'users:register' %}" class="hover:underline font-semibold">Зарегистрироваться</a>
+    </div>
+</div>
+{% endblock content %}
